@@ -1,6 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:wght@300;400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn-marvel{
+    padding: 1rem 2.5rem;
+    clip-path: polygon(0 32%, 12% 0, 100% 0%, 100% 68%, 88% 100%, 0 100%);
+    background-color: rgb(185 28 28);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-family: Roboto Condensed, sans-serif;
+    color: white;
+} 
+
+.btn-marvel:hover{
+    background-color: rgb(153 28 28);
+} 
+
+.btn-marvel-secondary{
+    padding: 1rem 1.5rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-family: Roboto Condensed, sans-serif;
+    color: white;
+    border-bottom:white solid 1px;
+    border-top:white solid 1px;
+} 
+
+.btn-marvel-secondary:hover{    
+    color: black;
+    background-color: white;
+    transition: ease-in-out;
+}
 

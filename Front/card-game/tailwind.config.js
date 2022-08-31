@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      'bebas':['Bebas Neue', 'cursive']
+      'bebas':['Bebas Neue', 'cursive'],
+      'roboto':['Roboto Condensed', 'sans-serif']
     }
   },
   plugins: [],
