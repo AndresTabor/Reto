@@ -1,0 +1,44 @@
+.lobby-container{
+    background-image: url(../../../assets/images/background2.jpg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: calc(100% - 96px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.board-card{       
+    padding: 1rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    font-weight: 700;
+    color: white;
+    border-bottom: var(--color-primary) 4px solid;
+}
+
+@media (max-width: 992px){
+    .board-card{
+        padding: 0.5rem 1.5rem;
+        flex-direction: column;
+        background-color: rgba(38, 38, 38, 0.8);
+        
+    }
+    .board-card > span{
+        margin-bottom: 1rem;
+        
+    }
+    .lobby-container{
+        background-repeat: repeat-y;
+        height: auto;
+        padding-bottom: 2rem;
+        background-size: contain;
+    }
+}
+
+.board-card:hover{
+    background-color: rgba(38, 38, 38, 0.8);
+    cursor: pointer;
+}

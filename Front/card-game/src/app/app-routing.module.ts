@@ -1,3 +1,4 @@
+import { LobbyComponent } from './pages/lobby/lobby.component';
 import { LoginComponent } from './pages/login/login.component';
 
 
@@ -12,8 +13,13 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'login',
+    path: '',
     component: LoginComponent
+  }
+  ,
+  {
+    path: 'lobby',
+    component: LobbyComponent
   }
 ];
 

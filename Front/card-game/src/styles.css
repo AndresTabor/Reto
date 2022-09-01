@@ -3,11 +3,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+*:root{
+    --color-primary: rgb(185 28 28);
+}
 .btn-marvel{
     padding: 1rem 2.5rem;
     clip-path: polygon(0 32%, 12% 0, 100% 0%, 100% 68%, 88% 100%, 0 100%);
-    background-color: rgb(185 28 28);
+    background-color: var(--color-primary);
     font-weight: 700;
     font-size: 1.5rem;
     line-height: 2rem;

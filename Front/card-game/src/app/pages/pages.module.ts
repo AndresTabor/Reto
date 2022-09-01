@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ComponentsModule } from '../components/components.module';
+import { LobbyComponent } from './lobby/lobby.component';
 
 
 
@@ -10,6 +11,7 @@ import { ComponentsModule } from '../components/components.module';
   declarations: [
     LoginComponent,
     HomeComponent,
+    LobbyComponent,
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { ComponentsModule } from '../components/components.module';
   ],
   exports:[
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    LobbyComponent,
   ]
 })
 export class PagesModule { }
