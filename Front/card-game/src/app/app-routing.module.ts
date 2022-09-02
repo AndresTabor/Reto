@@ -1,3 +1,4 @@
+import { BoardComponent } from './pages/board/board.component';
 import { LobbyComponent } from './pages/lobby/lobby.component';
 import { LoginComponent } from './pages/login/login.component';
 
@@ -20,7 +21,12 @@ const routes: Routes = [
   {
     path: 'lobby',
     component: LobbyComponent
+  },
+  {
+    path: 'board',
+    component: BoardComponent
   }
+  
 ];
 
 @NgModule({

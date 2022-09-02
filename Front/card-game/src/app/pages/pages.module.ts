@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ComponentsModule } from '../components/components.module';
 import { LobbyComponent } from './lobby/lobby.component';
+import { BoardComponent } from './board/board.component';
 
 
 
@@ -12,6 +13,7 @@ import { LobbyComponent } from './lobby/lobby.component';
     LoginComponent,
     HomeComponent,
     LobbyComponent,
+    BoardComponent,
   ],
   imports: [
     CommonModule,
@@ -21,6 +23,7 @@ import { LobbyComponent } from './lobby/lobby.component';
     LoginComponent,
     HomeComponent,
     LobbyComponent,
+    BoardComponent
   ]
 })
 export class PagesModule { }

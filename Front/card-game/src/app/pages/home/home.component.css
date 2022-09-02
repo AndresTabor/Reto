@@ -13,9 +13,14 @@
 .indications-container{
     padding: 0.5rem 1.5rem;
     text-align: center;
-    background-color: rgba(38, 38, 38, 0.5);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+@media (max-width: 500px){
+    .indications-container{
+        background-color: rgba(38, 38, 38, 0.5);
+    }
 }

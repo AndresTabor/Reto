@@ -23,7 +23,7 @@
     .board-card{
         padding: 0.5rem 1.5rem;
         flex-direction: column;
-        background-color: rgba(38, 38, 38, 0.8);
+        background-color: var(--darck-bg-opacity);
         
     }
     .board-card > span{
@@ -39,6 +39,6 @@
 }
 
 .board-card:hover{
-    background-color: rgba(38, 38, 38, 0.8);
+    background-color: var(--darck-bg-opacity);
     cursor: pointer;
 }

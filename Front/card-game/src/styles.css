@@ -5,6 +5,7 @@
 @tailwind utilities;
 *:root{
     --color-primary: rgb(185 28 28);
+    --darck-bg-opacity: rgba(38, 38, 38, 0.8);
 }
 .btn-marvel{
     padding: 1rem 2.5rem;
@@ -36,5 +37,40 @@
     color: black;
     background-color: white;
     transition: ease-in-out;
+}
+
+.card-container{
+    background-image: url(./assets/images/1F4.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 235px;
+    height: 360px;
+    background-color: aliceblue;
+}
+
+.card-border{
+    background-image: url(./assets/images/card-border.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-border > span:nth-child(2){
+    position: relative;
+    top: -18px;
+}
+
+.card-border > span:nth-child(1){
+    position: relative;
+    top: -20px;
+    padding: 0.2rem 0.5rem;
+    width: 110px;
+    align-self: center;
 }
 
