@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
+
   constructor(
     private userService: UserService,
     private router: Router
@@ -20,10 +21,12 @@ export class LoginComponent implements OnInit {
   onClick(){
     this.userService.loginWithGoogle()
     .then((response) => { 
-      console.log(response);
-      this.router.navigate(['/home']); 
+      console.log(response); 
+      this.router.navigate(['/home']);
+      this.userService.userLoged.emit(true);
     })
-    .catch((error) =>{ console.log(error) })
+    .catch((error) =>{ console.log(error) });
   }
+
 
 }

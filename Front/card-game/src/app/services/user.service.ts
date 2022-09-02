@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable, Output } from "@angular/core";
 import { Auth, signOut, GoogleAuthProvider, signInWithPopup  } from "@angular/fire/auth";
 
 @Injectable({
@@ -6,6 +6,7 @@ import { Auth, signOut, GoogleAuthProvider, signInWithPopup  } from "@angular/fi
 })
 
 export class UserService{
+    @Output() userLoged : EventEmitter<Boolean> = new EventEmitter();
 
     constructor(private auth: Auth){}
 

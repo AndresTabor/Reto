@@ -3,4 +3,7 @@
         <span class="font-bebas bg-red-700 text-white p-2 self-center text-6xl font-extrabold">BATTLE</span>
         <span class="font-bebas self-center text-white p-1.5 text-6xl font-extrabold">HERO</span>
     </nav>
+    <button id="logout-btn" *ngIf="isLogged" type="button" (click)="logout()" class="btn-marvel h-3/4 self-center mr-6" >
+        Logout
+    </button>
 </header>

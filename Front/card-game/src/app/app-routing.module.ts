@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: LoginComponent,
+    component: LoginComponent ,
     ...canActivate(() => redirectLoggedInTo(['/home']))
   },
   {
@@ -36,4 +36,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+
+export class AppRoutingModule {  
+}
