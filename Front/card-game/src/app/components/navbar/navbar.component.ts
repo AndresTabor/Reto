@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { getAuth } from '@angular/fire/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
@@ -16,6 +17,13 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    getAuth()
+        .onAuthStateChanged(user=>{
+            debugger
+            if (user?.uid){                
+              this.userService.userLoged.emit(true);
+            }
+        });
     this.userService.userLoged.subscribe( event => this.isLogged = event.valueOf() );
   }
 
