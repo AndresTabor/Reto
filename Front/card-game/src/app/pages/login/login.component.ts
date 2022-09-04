@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getAuth } from '@angular/fire/auth';
+import { getAuth, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   onClick(){
     this.userService.loginWithGoogle()
     .then((response) => { 
-      console.log(response); 
+      this.userService.addUser(response.user, true); 
       this.router.navigate(['/home']);
       this.userService.userLoged.emit(true);
     })

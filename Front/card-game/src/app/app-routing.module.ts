@@ -1,3 +1,4 @@
+import { CreateBoardComponent } from './pages/create-board/create-board.component';
 import { BoardComponent } from './pages/board/board.component';
 import { LobbyComponent } from './pages/lobby/lobby.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -27,6 +28,11 @@ const routes: Routes = [
   {
     path: 'board',
     component: BoardComponent,
+    ...canActivate(() => redirectUnauthorizedTo(['/']))
+  },
+  {
+    path: 'createboard',
+    component: CreateBoardComponent,
     ...canActivate(() => redirectUnauthorizedTo(['/']))
   }
   

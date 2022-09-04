@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { ComponentsModule } from '../components/components.module';
 import { LobbyComponent } from './lobby/lobby.component';
 import { BoardComponent } from './board/board.component';
+import { CreateBoardComponent } from './create-board/create-board.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -14,16 +16,20 @@ import { BoardComponent } from './board/board.component';
     HomeComponent,
     LobbyComponent,
     BoardComponent,
+    CreateBoardComponent,
   ],
   imports: [
     CommonModule,
-    ComponentsModule
+    ComponentsModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports:[
     LoginComponent,
     HomeComponent,
     LobbyComponent,
-    BoardComponent
+    BoardComponent,
+    CreateBoardComponent
   ]
 })
 export class PagesModule { }
