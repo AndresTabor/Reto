@@ -3,24 +3,29 @@
         <h2 class="text-white font-bebas text-8xl">CREAR JUEGO</h2>
         <button class="leave-btn font-roboto" (click)="leaveLobby()">
             SALIR
-        </button>        
+        </button> 
+        <button class="invite-btn font-roboto" (click)="inviteThisLoby()">
+            Invitar
+        </button>       
     </div>
-    <div class="sm:my-12 sm:w-2/4 sm:h-3/5">
+    <div class="sm:my-12 sm:w-3/4 sm:h-3/5">
         <div class="flex justify-between">
             <div>
-                <h3 class="text-white font-bebas text-6xl">Jugadores Online</h3>
+                <h3 class="text-white font-bebas text-6xl">Jugadores</h3>
             </div>
             <button type="submit" form="frmJugadores" class="btn-marvel" [disabled]="form.invalid">INICIAR JUEGO</button>            
-        </div>
-        <form id="frmJugadores" class="form-players" [formGroup]="form" (ngSubmit)="createBoard($event)">
-            <div class="flex items-center w-full" *ngFor="let user of usersInLobby " >
-                <div class="form-check mr-4">
-                    <input class="form-check-input" type="checkbox" formControlName="player" value="{{user.id}}" id="{{user.id}}" >
-                    <label class="form-check-label font-roboto" for="{{user.id}}"></label>
+        </div>        
+        <div class ="form-players">
+            <div class="card-player" *ngFor="let user of usersInLobby ">
+                <div class="bg-card-player">                    
                 </div>
-                <label class="text-4xl text-white font-roboto" for="{{user.id}}">{{ (user.nickName).toUpperCase() }}</label>
-            </div>  
-        </form> 
-             
+                <div class="player-data">
+                    <span class="font-bebas text-5xl text-center pt-2 px-2">{{ (user.nickName).toUpperCase() }}</span>
+                    <div>
+                        <img src={{user.photoUrl}} alt="photo-profile">
+                    </div>
+                </div>
+            </div>
+        </div>                       
     </div>
 </div>

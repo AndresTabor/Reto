@@ -1,7 +1,9 @@
 <header class="bg-neutral-800 h-24 flex justify-center content-center sm:h-24 ">
-    <nav class="h-2/4 w-full self-center flex justify-center">        
-        <span class="font-bebas bg-red-700 text-white p-2 self-center text-6xl font-extrabold">BATTLE</span>
-        <span class="font-bebas self-center text-white p-1.5 text-6xl font-extrabold">HERO</span>
+    <nav class="h-2/4 w-full self-center flex justify-center">
+        <a href="/home" class="self-center">
+            <span class="font-bebas bg-red-700 text-white px-2 self-center text-6xl font-extrabold">BATTLE</span>
+            <span class="font-bebas self-center text-white p-1.5 text-6xl font-extrabold">HERO</span>
+        </a>        
     </nav>
     <button id="logout-btn" *ngIf="isLogged" type="button" (click)="logout()" class="btn-marvel h-3/4 self-center mr-6" >
         Logout

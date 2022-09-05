@@ -18,7 +18,8 @@ export class PlayerService {
     const currentUser = getAuth().currentUser;
     const player = {
       id: currentUser?.uid,
-      nickName: currentUser?.displayName
+      nickName: currentUser?.displayName,
+      photoUrl: currentUser?.photoURL
     } as PlayerLobby;
 
     !lobby.players.find(p => p.id === currentUser?.uid)? lobby.players.push(player)

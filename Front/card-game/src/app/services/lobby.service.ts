@@ -18,16 +18,21 @@ export class LobbyService {
         const currentUser = getAuth().currentUser;
         const nickName = currentUser?.displayName; 
         const idUser = currentUser?.uid;
+        const photo = currentUser?.photoURL;
 
         const creator = {
             id: idUser,
-            nickName: nickName
+            nickName: nickName,
+            photoUrl: photo
         } as PlayerLobby 
 
         const players = new Array<PlayerLobby>;
         players.push(creator);     
         const lobbiesRef = collection(this.store, 'lobbies');
-        return addDoc(lobbiesRef, {name : "test 2", players: players});
+        const cifra1 = Math.floor(Math.random() *10);
+        const cifra2 = Math.floor(Math.random() *10);
+        const nameRoom = `Room ${cifra1}${cifra2}`
+        return addDoc(lobbiesRef, {name : nameRoom, players: players});
     }
 
     getLobby() : Observable<Lobby[]>{

@@ -1,6 +1,16 @@
 <div class="lobby-container">
     <div class="my-16 text-center">
         <h2 class="text-white font-bebas text-8xl">TABLEROS CREADOS</h2>
+        <div class="join-container">
+            <form id="lobbyForm" [formGroup]="form" (ngSubmit)="joinLobby($event)">
+                <input type="text" name="idLobby" id="idLobby" formControlName="lobby" placeholder="lobby Id"
+                class="mt-1 px-3 py-2 bg-stone-700 border shadow-sm border-slate-300 placeholder-white text-white focus:outline-none focus:border-red-700 focus:ring-red-500 block w-full rounded-md sm:text-md focus:ring-1">
+            </form>
+            <button type="submit" class="leave-btn font-roboto" [disabled]="form.invalid" form="lobbyForm">
+                Unirse
+            </button> 
+
+        </div>
     </div>
     <div class="sm:my-24 sm:w-2/4 sm:h-4/5">
         <div class="board-card font-roboto sm:w-full sm:h-1/4" *ngFor="let lobby of lobbiesList">

@@ -1,4 +1,5 @@
 export interface PlayerLobby {
     id: string;
-    nickName: string; 
+    nickName: string;
+    photoUrl: string; 
 }
