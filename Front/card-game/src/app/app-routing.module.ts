@@ -1,6 +1,6 @@
 import { CreateBoardComponent } from './pages/create-board/create-board.component';
 import { BoardComponent } from './pages/board/board.component';
-import { LobbyComponent } from './pages/lobby/lobby.component';
+import { LobbiesComponent } from './pages/lobbies/lobbies.component';
 import { LoginComponent } from './pages/login/login.component';
 
 
@@ -21,8 +21,8 @@ const routes: Routes = [
     ...canActivate(() => redirectLoggedInTo(['/home']))
   },
   {
-    path: 'lobby',
-    component: LobbyComponent,
+    path: 'lobbies',
+    component: LobbiesComponent,
     ...canActivate(() => redirectUnauthorizedTo(['/']))
   },
   {
@@ -31,7 +31,7 @@ const routes: Routes = [
     ...canActivate(() => redirectUnauthorizedTo(['/']))
   },
   {
-    path: 'createboard',
+    path: 'create-game/:id',
     component: CreateBoardComponent,
     ...canActivate(() => redirectUnauthorizedTo(['/']))
   }

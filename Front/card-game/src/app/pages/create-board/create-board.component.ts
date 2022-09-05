@@ -1,9 +1,12 @@
+import { Player } from './../../models/player.model';
 import { Component, OnInit } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
+import { LobbyService } from 'src/app/services/lobby.service';
 import { UserService } from 'src/app/services/user.service';
+import { PlayerLobby } from 'src/app/models/playerLobby';
 
 
 @Component({
@@ -13,27 +16,32 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CreateBoardComponent implements OnInit{
 
-  //frmJugadores: FormGroup;
+  usersInLobby = new Array<PlayerLobby>;
   usersOnline!: Array<User>;
   form!: FormGroup;
+  lobby: any;
   
-  constructor(private userService: UserService, private router: Router) {
+  constructor(
+    private userService: UserService, 
+    private router: Router,
+    private lobbyService: LobbyService
+    
+  ) {
     this.buildForm();
-      
   }
 
   ngOnInit(): void {
-    const currentUserId = getAuth().currentUser?.uid ;  
-    //const dataStorage = JSON.parse(localStorage.getItem('users')|| "");
-    //this.usersOnline = dataStorage.filter((user: { state: boolean; }) => user.state === true);
-    this.userService.getUsers().subscribe(
-      users =>  {
-        localStorage.setItem('users', JSON.stringify(users));
-        const dataStorage = JSON.parse(localStorage.getItem('users')|| "");              
-        this.usersOnline = dataStorage.filter((user: { isOnline: boolean; }) => user.isOnline === true);
-        this.usersOnline = this.usersOnline.filter(user => user.id !== currentUserId);
-      }
-    );
+    const currentUserId = getAuth().currentUser?.uid ; 
+    const idLobby =  this.router.url.split('/').pop()!;
+    this.lobbyService.getLobby().subscribe(      
+      lobby => {
+        console.log(lobby);        
+        localStorage.setItem('lobbies', JSON.stringify(lobby));
+        const dataStorage = JSON.parse(localStorage.getItem('lobbies')|| "");
+        this.lobby = dataStorage.filter((lobby: { id: string; }) => lobby.id == idLobby).pop();
+        this.usersInLobby = this.lobby.players;
+        //this.lobby.players.map((player: PlayerLobby) => this.usersInLobby.push(player));  
+      })                   
   }
 
   public createBoard(event : Event): void {
@@ -42,10 +50,6 @@ export class CreateBoardComponent implements OnInit{
       const playersSelected = this.form.getRawValue();     
       console.log(this.form);
     }
-    //gamers.jugadores.push(this.currentUser?.uid);
-    //console.log("Submit", gamers);
-    console.log("submit");
-    //this.router.navigate(['/board']);
   }
 
   private buildForm() {
