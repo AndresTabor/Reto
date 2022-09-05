@@ -1,7 +1,7 @@
 import { PlayerLobby } from 'src/app/models/playerLobby';
 import { addDoc } from '@firebase/firestore';
 import { Observable } from 'rxjs';
-import { EventEmitter, Injectable, Output } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Auth, User, getAuth } from "@angular/fire/auth";
 import { Lobby } from '../models/lobby.model';
@@ -34,4 +34,5 @@ export class LobbyService {
         const lobbiesRef = collection(this.store, 'lobbies');                      
         return collectionData(lobbiesRef,{ idField: 'id' }) as Observable<Lobby[]>;
     }
+    
 }

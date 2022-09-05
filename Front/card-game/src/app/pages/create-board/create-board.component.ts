@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user.model';
 import { LobbyService } from 'src/app/services/lobby.service';
 import { UserService } from 'src/app/services/user.service';
 import { PlayerLobby } from 'src/app/models/playerLobby';
+import { Lobby } from 'src/app/models/lobby.model';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class CreateBoardComponent implements OnInit{
   usersInLobby = new Array<PlayerLobby>;
   usersOnline!: Array<User>;
   form!: FormGroup;
-  lobby: any;
+  lobby!: Lobby;
   
   constructor(
     private userService: UserService, 
@@ -31,16 +32,14 @@ export class CreateBoardComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    const currentUserId = getAuth().currentUser?.uid ; 
-    const idLobby =  this.router.url.split('/').pop()!;
+    const idLobby = this.router.url.split('/').pop()!;
     this.lobbyService.getLobby().subscribe(      
       lobby => {
         console.log(lobby);        
         localStorage.setItem('lobbies', JSON.stringify(lobby));
         const dataStorage = JSON.parse(localStorage.getItem('lobbies')|| "");
         this.lobby = dataStorage.filter((lobby: { id: string; }) => lobby.id == idLobby).pop();
-        this.usersInLobby = this.lobby.players;
-        //this.lobby.players.map((player: PlayerLobby) => this.usersInLobby.push(player));  
+        this.usersInLobby = this.lobby.players;        
       })                   
   }
 
