@@ -1,13 +1,13 @@
-import { Player } from './../../models/player.model';
+
 import { Component, OnInit } from '@angular/core';
-import { getAuth } from '@angular/fire/auth';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { LobbyService } from 'src/app/services/lobby.service';
 import { UserService } from 'src/app/services/user.service';
 import { PlayerLobby } from 'src/app/models/playerLobby';
 import { Lobby } from 'src/app/models/lobby.model';
+import { PlayerService } from 'src/app/services/player.service';
 
 
 @Component({
@@ -25,7 +25,8 @@ export class CreateBoardComponent implements OnInit{
   constructor(
     private userService: UserService, 
     private router: Router,
-    private lobbyService: LobbyService
+    private lobbyService: LobbyService,
+    private playerService: PlayerService
     
   ) {
     this.buildForm();
@@ -60,6 +61,14 @@ export class CreateBoardComponent implements OnInit{
       .subscribe(value => {
       console.log(value);
     });*/
+  }
+
+  leaveLobby(){
+    this.playerService.leaveTolobby(this.lobby)
+    .then((response) => { 
+      this.router.navigate(['/lobbies']);
+    })
+    .catch((error) =>  console.log(error));    
   }
 
 }

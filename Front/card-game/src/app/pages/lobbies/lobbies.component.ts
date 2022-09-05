@@ -31,6 +31,6 @@ export class LobbiesComponent implements OnInit {
   goTolobby(idLobby: string, ){
     this.router.navigate([`create-game/${idLobby}`]);
     const lobbyToJoin = this.lobbiesList.filter(lobby => lobby.id === idLobby).pop()!;
-    //this.playerService.joinTolobby(idLobby,lobbyToJoin);
+    this.playerService.joinTolobby(idLobby,lobbyToJoin);
   }
 }

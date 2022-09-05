@@ -28,7 +28,12 @@ export class PlayerService {
     return setDoc(refLobby, lobby)
   }
 
-  leaveTolobby(){
-    
+  leaveTolobby(lobby : Lobby){
+    const lobbiesRef = collection(this.store, 'lobbies');
+    const refLobby = doc(lobbiesRef, lobby.id); 
+    const currentUserId = getAuth().currentUser?.uid;
+    const playersUpdated = lobby.players.filter(p => p.id !== currentUserId);
+    lobby.players = playersUpdated;
+    return setDoc(refLobby, lobby)
   }
 }

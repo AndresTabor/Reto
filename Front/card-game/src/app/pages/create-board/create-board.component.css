@@ -70,3 +70,20 @@
     background: linear-gradient(to top, #e00b0b 0%, #a3040f 40%, #79010d 100%);
 }
 
+.leave-btn{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    position: absolute;
+    top:14%;
+    left: 2rem;
+    padding: 0.5rem 2.5rem;
+	background: #555;
+	border-radius: 15px;
+	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.6), 0px 1px 0px rgba(255,255,255,0.3);
+}
+
+.leave-btn:hover{
+    background: rgb(55, 55, 55);
+}
+
