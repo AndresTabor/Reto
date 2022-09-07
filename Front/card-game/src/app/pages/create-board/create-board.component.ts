@@ -20,6 +20,7 @@ export class CreateBoardComponent implements OnInit{
   usersOnline!: Array<User>;
   form!: FormGroup;
   lobby!: Lobby;
+  showSide:boolean = false;
   
   constructor(
     private router: Router,
@@ -78,6 +79,10 @@ export class CreateBoardComponent implements OnInit{
       .catch(err => {
       console.log('Something went wrong', err);
     })
+  }
+
+  showSideMenu(){
+    this.showSide = true;
   }
 
 }

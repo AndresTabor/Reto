@@ -14,6 +14,7 @@ export class LobbiesComponent implements OnInit {
 
   lobbiesList: Array<Lobby> = new Array<Lobby>();
   form!: FormGroup;
+  showSide: boolean = false;
 
   constructor(
     private router: Router,

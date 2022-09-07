@@ -16,7 +16,7 @@ public class JuegoEventChange extends EventChange {
 
         apply((JugadorAdicionado event) -> {
             juego.jugadores.put(event.getIdentity(),
-                    new Jugador(event.getIdentity(), event.getAlias())
+                    new Jugador(event.getIdentity(), event.getAlias(), mazo)
             );
         });
     }

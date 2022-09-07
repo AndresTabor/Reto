@@ -1,6 +1,7 @@
 package org.example.domain;
 
 import org.example.domain.values.JugadorId;
+import org.example.domain.values.Mazo;
 
 import java.util.HashSet;
 import java.util.Set;
