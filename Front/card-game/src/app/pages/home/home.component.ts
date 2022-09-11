@@ -15,9 +15,10 @@ export class HomeComponent implements OnInit {
   }
 
   createLobby(){
+    console.log("home");
+    
     this.lobbyService.createLobby()
     .then( response => {
-      console.log(response); 
       this.router.navigate([`/create-game/${response.id}`]);     
     })
     .catch( error => console.log(error) );    

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Auth, User, getAuth } from "@angular/fire/auth";
+import { HttpClient } from '@angular/common/http';
 import { Lobby } from '../models/lobby.model';
 
 @Injectable({
@@ -32,12 +33,14 @@ export class LobbyService {
         const cifra1 = Math.floor(Math.random() *10);
         const cifra2 = Math.floor(Math.random() *10);
         const nameRoom = `Room ${cifra1}${cifra2}`
-        return addDoc(lobbiesRef, {name : nameRoom, players: players});
+        return addDoc(lobbiesRef, {name : nameRoom, players: players, host:idUser});
     }
 
     getLobby() : Observable<Lobby[]>{
         const lobbiesRef = collection(this.store, 'lobbies');                      
         return collectionData(lobbiesRef,{ idField: 'id' }) as Observable<Lobby[]>;
     }
+
+    
     
 }

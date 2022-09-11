@@ -26,7 +26,7 @@ const routes: Routes = [
     ...canActivate(() => redirectUnauthorizedTo(['/']))
   },
   {
-    path: 'board',
+    path: 'board/:id',
     component: BoardComponent,
     ...canActivate(() => redirectUnauthorizedTo(['/']))
   },
@@ -34,17 +34,8 @@ const routes: Routes = [
     path: 'create-game/:id',
     component: CreateBoardComponent,
     ...canActivate(() => redirectUnauthorizedTo(['/']))
-  },
-  {
-    path: '*',
-    component: LoginComponent,
-    ...canActivate(() => redirectUnauthorizedTo(['/']))
-  },
-  {
-    path: '*',
-    component: HomeComponent,
-    ...canActivate(() => redirectLoggedInTo(['/home']))
   }
+  
   
 ];
 

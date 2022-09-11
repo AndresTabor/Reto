@@ -41,13 +41,24 @@
 }
 
 .card-container{
-    background-image: url(./assets/images/1F4.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     width: 235px;
     height: 360px;
-    background-color: aliceblue;
+}
+
+.card-container-deck{
+    width: 235px;
+    height: 360px;
+    background-image: url(./assets/images/bg-card.jpg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5;
+}
+
+.card-container > img{    
+    object-fit: cover;
+    height: inherit;
+    width: inherit;
 }
 
 .card-border{
@@ -60,6 +71,8 @@
     text-align: center;
     display: flex;
     flex-direction: column;
+    position: relative;
+    top: -360px;
 }
 
 .card-border > span:nth-child(2){

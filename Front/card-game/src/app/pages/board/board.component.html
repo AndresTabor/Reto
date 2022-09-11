@@ -2,43 +2,33 @@
     <div class="flex flex-col justify-center aling-center sm:h-full sm:w-2/3 ml-10">
         <div class="w-full flex justify-around text-white font-bebas mt-6">
             <div class="flex flex-col text-4xl">
-                <span>RONDA# 10</span>
-                <span>JUGADORES 5/5</span>
+                <span *ngIf="currentRound != null">RONDA# {{currentRound.round}}</span>
+                <span *ngIf="currentRound == null">RONDA# 1</span>
+                <span *ngIf="currentRound != null">JUGADORES {{currentRound.playersInRound.length}}/5</span>
+                <span *ngIf="currentRound == null">JUGADORES {{activePlayers}}/5</span>
             </div>
+            <button (click)="startGame()" class="btn-marvel">
+                INICIAR
+            </button>
             <div class="text-6xl">
-                <span>TIEMPO: 50S</span>
+                <span>TIEMPO: {{timer}}S</span>
             </div>
         </div>
-        <div class="board-bg justify-items-center">
-            <div class="card-container card-one">
-                <div class="card-border">
-                    <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
-                    <span class="text-white text-6xl font-bebas">10</span>
-                </div>
+        <div class="board-bg justify-items-center" >
+            <div class="card-container-deck card-one">
+                
             </div>
-            <div class="card-container card-two">
-                <div class="card-border">
-                    <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
-                    <span class="text-white text-6xl font-bebas">10</span>
-                </div>
+            <div class="card-container-deck card-two">
+                
             </div>
-            <div class="card-container card-three">
-                <div class="card-border">
-                    <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
-                    <span class="text-white text-6xl font-bebas">10</span>
-                </div>
+            <div class="card-container-deck card-three">
+                
             </div>
-            <div class="card-container card-four">
-                <div class="card-border">
-                    <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
-                    <span class="text-white text-6xl font-bebas">10</span>
-                </div>
+            <div class="card-container-deck card-four">                                
+                
             </div>
-            <div class="card-container card-five">
-                <div class="card-border">
-                    <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
-                    <span class="text-white text-6xl font-bebas">10</span>
-                </div>
+            <div class="card-container-deck card-five">
+                
             </div>
         </div>
     </div>
@@ -47,43 +37,13 @@
             <span class="deck-title">TU MAZO</span> 
         </div>
         <div class="cards-grid h-5/6 sm:grid grid-cols-2 gap-8 p-4 content-start justify-items-center overflow-scroll font-roboto">
-            <div class="card-container">
+            <div class="card-container" *ngFor="let card of deck">
+                <img src={{card.image}} alt="card image">                
                 <div class="card-border">
                     <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
-                    <span class="text-white text-6xl font-bebas">10</span>
+                    <span class="text-white text-6xl font-bebas">{{card.poder}}</span>
                 </div>
-            </div>
-            <div class="card-container">
-                <div class="card-border">
-                    <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
-                    <span class="text-white text-6xl font-bebas">10</span>
-                </div>
-            </div>
-            <div class="card-container">
-                <div class="card-border">
-                    <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
-                    <span class="text-white text-6xl font-bebas">10</span>
-                </div>
-            </div>
-            <div class="card-container">
-                <div class="card-border">
-                    <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
-                    <span class="text-white text-6xl font-bebas">10</span>
-                </div>
-            </div>
-            <div class="card-container">
-                <div class="card-border">
-                    <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
-                    <span class="text-white text-6xl font-bebas">10</span>
-                </div>
-            </div>
-            <div class="card-container">
-                <div class="card-border">
-                    <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
-                    <span class="text-white text-6xl font-bebas">10</span>
-                </div>
-            </div>
-            
+            </div>                        
         </div>
         
         

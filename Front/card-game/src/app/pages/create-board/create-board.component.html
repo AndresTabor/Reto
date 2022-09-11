@@ -17,7 +17,7 @@
             <div>
                 <h3 class="text-white font-bebas text-6xl">Jugadores</h3>
             </div>
-            <button type="submit" form="frmJugadores" class="btn-marvel" [disabled]="form.invalid">INICIAR JUEGO</button>            
+            <button type="button" class="btn-marvel"  (click)="crateBoard()">INICIAR JUEGO</button>            
         </div>        
         <div class ="form-players">
             <div class="card-player" *ngFor="let user of usersInLobby ">

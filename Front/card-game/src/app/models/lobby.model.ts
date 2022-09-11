@@ -3,4 +3,5 @@ export interface Lobby {
     id: string;
     name: string;
     players: Array<PlayerLobby>;
+    host: string;
 }
