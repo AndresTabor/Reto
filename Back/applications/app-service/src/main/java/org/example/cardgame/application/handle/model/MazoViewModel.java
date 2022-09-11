@@ -29,7 +29,6 @@ public class MazoViewModel {
         private  Boolean estaOculta;
         private  Boolean estaHabilitada;
         private  Integer poder;
-
         public String getCartaId() {
             return cartaId;
         }

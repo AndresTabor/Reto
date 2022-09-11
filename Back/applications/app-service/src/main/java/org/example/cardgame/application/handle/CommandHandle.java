@@ -40,7 +40,7 @@ public class CommandHandle {
     @Bean
     public RouterFunction<ServerResponse> iniciar(IniciarJuegoUseCase usecase) {
         return route(
-                POST("/juego/iniciar").and(accept(MediaType.APPLICATION_JSON)),
+                POST("/juego/start").and(accept(MediaType.APPLICATION_JSON)),
                 request -> usecase.andThen(integrationHandle)
                         .apply(request.bodyToMono(IniciarJuegoCommand.class))
                         .then(ServerResponse.ok().build())
@@ -52,7 +52,7 @@ public class CommandHandle {
     @Bean
     public RouterFunction<ServerResponse> iniciarRonda(IniciarRondaUseCase usecase) {
         return route(
-                POST("/juego/ronda/iniciar").and(accept(MediaType.APPLICATION_JSON)),
+                POST("/juego/ronda/start").and(accept(MediaType.APPLICATION_JSON)),
                 request -> usecase.andThen(integrationHandle)
                         .apply(request.bodyToMono(IniciarRondaCommand.class))
                         .then(ServerResponse.ok().build())

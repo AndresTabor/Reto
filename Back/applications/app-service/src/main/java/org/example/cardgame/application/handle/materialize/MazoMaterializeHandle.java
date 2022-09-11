@@ -35,7 +35,7 @@ public class MazoMaterializeHandle {
         this.template = template;
     }
 
-    //TODO: handle Jugador Agregado
+
     @EventListener
     public void handleJugadorAgregado(JugadorAgregado event) {
         var mazo = event.getMazo().value();
@@ -54,6 +54,7 @@ public class MazoMaterializeHandle {
                 documentCarta.put("cartaId", carta.value().cartaId().value());
                 documentCarta.put("estaHabilitada", carta.value().estaHabilitada());
                 documentCarta.put("estaOculta", carta.value().estaOculta());
+                documentCarta.put("url", carta.value().image());//test
                 cartas.add(documentCarta);
             }
         });
