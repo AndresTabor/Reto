@@ -88,6 +88,7 @@ public class MazoMaterializeHandle {
             c.setEstaHabilitada(carta.value().estaHabilitada());
             c.setEstaOculta(carta.value().estaOculta());
             c.setPoder(carta.value().poder());
+            c.setUrl(carta.value().image());
             return c;
         }).collect(Collectors.toSet());
 

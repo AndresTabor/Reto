@@ -10,9 +10,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * The type Tablero.
- */
+
 public class Tablero extends Entity<TableroId> {
     private final Map<JugadorId, Set<Carta>> partida;
     private Integer tiempoEnSegundos;
