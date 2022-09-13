@@ -1,6 +1,5 @@
 export interface Board {
-    id: string;
     cardsDeck: [];
+    isEnabled: boolean;
     time: number;
-    round: number;
 }

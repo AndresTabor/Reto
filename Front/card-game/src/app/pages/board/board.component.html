@@ -36,9 +36,9 @@
         <div class="text-white text-6xl font-bebas h-1/6 text-center py-14 ">
             <span class="deck-title">TU MAZO</span> 
         </div>
-        <div class="cards-grid h-5/6 sm:grid grid-cols-2 gap-8 p-4 content-start justify-items-center overflow-scroll font-roboto">
-            <div class="card-container" *ngFor="let card of deck">
-                <img src={{card.image}} alt="card image">                
+        <div class="cards-grid h-5/6 sm:grid grid-cols-2 gap-8 p-4 content-start justify-items-center overflow-scroll font-roboto" *ngIf="player.deck != null">
+            <div class="card-container" *ngFor="let card of player.deck" >
+                <img src={{card.url}} alt="card image">                
                 <div class="card-border">
                     <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
                     <span class="text-white text-6xl font-bebas">{{card.poder}}</span>
