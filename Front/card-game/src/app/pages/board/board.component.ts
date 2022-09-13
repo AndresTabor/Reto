@@ -7,6 +7,8 @@ import { getAuth } from '@angular/fire/auth';
 import { Player } from 'src/app/models/player.model';
 import { Round } from 'src/app/models/round.mode';
 import { Board } from 'src/app/models/board.model';
+import { PlayerService } from 'src/app/services/player.service';
+import { CardBoard } from 'src/app/models/cardsBoards.model';
 
 
 @Component({
@@ -23,19 +25,23 @@ export class BoardComponent implements OnInit {
   activePlayers!: number;
   currentRound!: Round;
   timer:number;
+  boardDeck!:Array<CardBoard>;
 
   constructor(
     private boardService: BoardService,private webSocket : ConnectService,
-    private router: Router
+    private router: Router,
+    private playerService: PlayerService
   ) { 
     this.juegoId = this.router.url.split('/').pop()!;    
     this.timer = 60;
   }
 
   ngOnInit(): void {
+    console.log("board montado");
     this.getBoard();
     this.webSocket.connect(this.juegoId).subscribe({
-      next:(message:any)=> {  
+      next:(message:any)=> {
+        this.getBoard();  
         console.log(message);      
         message.type == "cardgame.tiempocambiadodeltablero" ? this.timer = message.tiempo :console.log("");
       },
@@ -52,15 +58,25 @@ export class BoardComponent implements OnInit {
   }
     
   getBoard(){
-    this.boardService.getBoard(this.juegoId).subscribe(event =>{      
+    this.boardService.getBoard(this.juegoId).subscribe(event =>{
+      let cards = new Map<string, Set<CardBoard>>; 
+      this.boardDeck = Object.keys(event.tablero.cartas).flatMap(key =>{
+        const value = event.tablero.cartas[key];
+        console.log(value); 
+        cards.set(key, value);    
+        console.log(cards);
+        return value;      
+      });
       const board = {
-        cardsDeck: event.cartas,
-        isEnabled: event.habilitado,
+        cardsDeck: cards,
+        isEnabled: event.tablero.habilitado,
         time: event.tiempo
-      } as Board;
+      }  as Board;
+      
       this.board = board;
       this.getRound(event.ronda);
-      this.getPlayerData();        
+      this.getPlayerData();   
+      
     });           
   }
     
@@ -84,9 +100,18 @@ export class BoardComponent implements OnInit {
         nickname: nickName,
         deck: deck.cartas
       } as Player;       
-      this.player = player;      
-      
+      this.player = player;            
     });       
+  }
+
+  putCardInBoard(idCard:string){
+    const body = {
+      "jugadorId": this.player.id,
+      "cartaId": idCard,
+      "juegoId": this.juegoId
+    }
+    console.log("puse carta");
+    //this.playerService.putCard(body).subscribe(card =>{ console.log(card); });
   }
 }
   

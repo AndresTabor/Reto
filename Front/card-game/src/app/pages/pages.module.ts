@@ -7,6 +7,7 @@ import { BoardComponent } from './board/board.component';
 import { CreateBoardComponent } from './create-board/create-board.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -21,6 +22,7 @@ import { ComponentsModule } from '../components/components.module';
   imports: [
     CommonModule,
     ComponentsModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
   ],

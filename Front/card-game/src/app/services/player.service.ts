@@ -4,6 +4,8 @@ import { collection, doc, Firestore, setDoc } from '@angular/fire/firestore';
 import { PlayerLobby } from '../models/playerLobby';
 import { LobbyService } from './lobby.service';
 import { Lobby } from '../models/lobby.model';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,11 @@ import { Lobby } from '../models/lobby.model';
 
 export class PlayerService {
 
-  constructor(private store : Firestore, private lobbyService : LobbyService) { }
+  constructor(
+    private store : Firestore, 
+    private lobbyService : LobbyService,
+    private http: HttpClient
+    ) { }
 
   joinTolobby(idLobby : string, lobby : Lobby){
     const lobbiesRef = collection(this.store, 'lobbies'); 
@@ -36,5 +42,9 @@ export class PlayerService {
     const playersUpdated = lobby.players.filter(p => p.id !== currentUserId);
     lobby.players = playersUpdated;
     return setDoc(refLobby, lobby)
+  }
+
+  putCard(body: any): Observable<any>{    
+    return this.http.post("http://localhost:8080/juego/poner",body);            
   }
 }

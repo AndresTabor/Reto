@@ -31,5 +31,7 @@ export class BoardService {
   startRound(body:any) : Observable<any>{
     return this.http.post("http://localhost:8080/juego/ronda/start", body) as Observable<any[]>;
   }
+
+  
 }
 

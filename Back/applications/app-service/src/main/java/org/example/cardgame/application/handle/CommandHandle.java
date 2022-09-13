@@ -70,7 +70,6 @@ public class CommandHandle {
                         .apply(request.bodyToMono(PonerCartaEnTablero.class))
                         .then(ServerResponse.ok().build())
                         .onErrorResume(errorHandler::badRequest)
-
         );
     }
 

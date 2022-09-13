@@ -15,21 +15,9 @@
             </div>
         </div>
         <div class="board-bg justify-items-center" >
-            <div class="card-container-deck card-one">
+            <div class="card-container-deck" *ngFor="let card of boardDeck">
                 
-            </div>
-            <div class="card-container-deck card-two">
-                
-            </div>
-            <div class="card-container-deck card-three">
-                
-            </div>
-            <div class="card-container-deck card-four">                                
-                
-            </div>
-            <div class="card-container-deck card-five">
-                
-            </div>
+            </div>            
         </div>
     </div>
     <div class="deck-container sm:h-full sm:w-1/3">
@@ -37,13 +25,13 @@
             <span class="deck-title">TU MAZO</span> 
         </div>
         <div class="cards-grid h-5/6 sm:grid grid-cols-2 gap-8 p-4 content-start justify-items-center overflow-scroll font-roboto" *ngIf="player.deck != null">
-            <div class="card-container" *ngFor="let card of player.deck" >
+            <button class="card-container"  [disabled]="!board.isEnabled" *ngFor="let card of player.deck" (click)="putCardInBoard(card.cartaId)">
                 <img src={{card.url}} alt="card image">                
                 <div class="card-border">
                     <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>
                     <span class="text-white text-6xl font-bebas">{{card.poder}}</span>
                 </div>
-            </div>                        
+            </button>                        
         </div>
         
         
