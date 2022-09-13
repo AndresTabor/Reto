@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { getAuth } from '@angular/fire/auth';
 import { Player } from 'src/app/models/player.model';
 import { Round } from 'src/app/models/round.mode';
+import { Board } from 'src/app/models/board.model';
 
 
 @Component({
@@ -13,71 +14,79 @@ import { Round } from 'src/app/models/round.mode';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
+
 export class BoardComponent implements OnInit {
   juegoId: string;
+  board!:Board;
   events = new Array<any>;
-  deck = new Array<any>();
-  player : Player; 
+  player! : Player; 
   activePlayers!: number;
-  roundEvent!: any;
-  currentRound!: any;
+  currentRound!: Round;
   timer:number;
 
   constructor(
     private boardService: BoardService,private webSocket : ConnectService,
     private router: Router
   ) { 
-    this.events = JSON.parse(localStorage.getItem('events')!);
-    this.player =  this.getPlayerData();
-    this.juegoId = this.router.url.split('/').pop()!;
+    this.juegoId = this.router.url.split('/').pop()!;    
     this.timer = 60;
   }
 
   ngOnInit(): void {
+    this.getBoard();
     this.webSocket.connect(this.juegoId).subscribe({
       next:(message:any)=> {  
         console.log(message);      
-        message.type == "cardgame.rondacreada" ? this.getRound(message) :console.log("");
         message.type == "cardgame.tiempocambiadodeltablero" ? this.timer = message.tiempo :console.log("");
       },
       error:(error:any)=> console.log(error),
       complete: ()=> console.log("complete")
-    });
-    this.activePlayers = this.events.filter(event => event.type == "cardgame.jugadoragregado").length;        
+    });    
   }
 
-  getPlayerData (): Player {
-    const idPlayer = getAuth().currentUser?.uid;
-    const event = this.events.filter(event => event.type == "cardgame.jugadoragregado");
-    const playerEvent = event.find(e => e.identity.uuid == idPlayer);
-    
-     const player = {
-      id: playerEvent.identity.uuid,
-      nickname: playerEvent.alias,
-      deck: playerEvent.mazo.catas
-    } as Player;
-    
-    this.deck = player.deck        
-    return player;
-  }
-
-  startGame(){
-    console.log("start game");    
-    this.boardService.startGame({"juegoId": this.juegoId}).subscribe(event => 
-      console.log(event)
-    );
+  
+  startGame(){       
     this.boardService.startRound({"juegoId": this.juegoId}).subscribe(event => 
       console.log(event)
-    );
+      );
   }
-
-  getRound(eventRound:any){
+    
+  getBoard(){
+    this.boardService.getBoard(this.juegoId).subscribe(event =>{      
+      const board = {
+        cardsDeck: event.cartas,
+        isEnabled: event.habilitado,
+        time: event.tiempo
+      } as Board;
+      this.board = board;
+      this.getRound(event.ronda);
+      this.getPlayerData();        
+    });           
+  }
+    
+  getRound(rondaEvent:any){
     const round = {
-      round: eventRound.ronda.numero,
-      time: eventRound.tiempo,
-      isStarted: eventRound.ronda.estaIniciada,
-      playersInRound: eventRound.ronda.jugadores,
+      round: rondaEvent.numero,
+      isStarted: rondaEvent.estaIniciada,
+      playersInRound: rondaEvent.jugadores,
     } as Round;
     this.currentRound = round;
+    this.activePlayers = this.currentRound.playersInRound.length;
+  }
+    
+  getPlayerData() {
+    const idPlayer = getAuth().currentUser?.uid;
+    const nickName = getAuth().currentUser?.displayName;
+    
+    this.boardService.getDeckPLayer(idPlayer,this.juegoId).subscribe(deck =>{              
+      const player = {
+        id: idPlayer,
+        nickname: nickName,
+        deck: deck.cartas
+      } as Player;       
+      this.player = player;      
+      
+    });       
   }
 }
+  

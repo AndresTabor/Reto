@@ -19,9 +19,12 @@ export class CreateBoardComponent implements OnInit, OnDestroy{
 
   
   usersInLobby = new Array<PlayerLobby>;
+  readyToPlay = false;
   lobby!: Lobby;
   showSide:boolean = false;
   eventos = new Array<any>; 
+  eventsLoads: number = 0;
+
   constructor(
     private router: Router,
     private lobbyService: LobbyService,
@@ -40,21 +43,25 @@ export class CreateBoardComponent implements OnInit, OnDestroy{
         localStorage.setItem('lobbies', JSON.stringify(lobby));
         const dataStorage = JSON.parse(localStorage.getItem('lobbies')|| "");
         this.lobby = dataStorage.filter((lobby: { id: string; }) => lobby.id == idLobby).pop();
-        this.usersInLobby = this.lobby.players;       
+        this.usersInLobby = this.lobby.players;      
       }
     );
     this.webSocket.connect(idLobby).subscribe({
-      next:(message:any)=> {
-        this.eventos.push(message);
-        localStorage.setItem('events', JSON.stringify(
-          this.eventos
-        ));
-        
+      next:(message:any)=> {   
+        //console.log(message); 
+        message.type === "cardgame.jugadoragregado" ?  this.eventsLoads+=1 : console.log(""); 
+        if(this.eventsLoads == (this.usersInLobby.length + 1)){//cambiar luego de pruebas
+          this.router.navigate([`/board/${this.lobby.id}`]) 
+          this.boardService.startGame({"juegoId": this.lobby.id}).subscribe(event => 
+            console.log(event)
+          );         
+        }          
       },
       error:(error:any)=> console.log(error),
       complete: ()=> console.log("complete")
       
-    });                      
+    });                
+                      
   }
 
   ngOnDestroy(): void {
@@ -85,6 +92,8 @@ export class CreateBoardComponent implements OnInit, OnDestroy{
   }
 
   crateBoard(){
+    if(this.readyToPlay){
+    console.log("creo Juego");
     let players = {}
     this.usersInLobby.map(p => {
         const obj = {
@@ -106,9 +115,9 @@ export class CreateBoardComponent implements OnInit, OnDestroy{
     }
     this.boardService.createGame(data).subscribe(s=>
       {  
-        this.router.navigate([`/board/${this.lobby.id}`])
+        //this.router.navigate([`/board/${this.lobby.id}`])
       }       
-    );
+    );}else{alert("Deben ser minimo dos jugadores")}
   }
 
 }
