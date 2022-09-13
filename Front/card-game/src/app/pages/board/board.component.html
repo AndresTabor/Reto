@@ -25,7 +25,7 @@
             <span class="deck-title">TU MAZO</span> 
         </div>
         <div class="cards-grid h-5/6 sm:grid grid-cols-2 gap-8 p-4 content-start justify-items-center overflow-scroll font-roboto" *ngIf="player.deck != null">
-            <button class="card-container"  [disabled]="!board.isEnabled" *ngFor="let card of player.deck" (click)="putCardInBoard(card.cartaId)">
+            <button class="card-container" [disabled]="!board.isEnabled" *ngFor="let card of player.deck" (click)="putCardInBoard(card.cartaId)">
                 <img src={{card.url}} alt="card image">                
                 <div class="card-border">
                     <span class="btn-marvel text-white text-4xl font-bebas">POWER</span>

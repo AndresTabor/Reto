@@ -48,14 +48,15 @@ export class CreateBoardComponent implements OnInit, OnDestroy{
     );
     this.webSocket.connect(idLobby).subscribe({
       next:(message:any)=> {   
-        //console.log(message); 
-        message.type === "cardgame.jugadoragregado" ?  this.eventsLoads+=1 : console.log(""); 
-        if(this.eventsLoads == (this.usersInLobby.length + 1)){//cambiar luego de pruebas
-          this.router.navigate([`/board/${this.lobby.id}`]) 
+        console.log(message); 
+        message.type === "cardgame.jugadoragregado" ?  this.eventsLoads += 1 : console.log(""); 
+        if(this.eventsLoads == (this.usersInLobby.length)){
+          console.log("jugadores Cargados", this.usersInLobby.length , this.eventsLoads);       
           this.boardService.startGame({"juegoId": this.lobby.id}).subscribe(event => 
             console.log(event)
-          );         
-        }          
+            )
+            this.router.navigate([`/board/${this.lobby.id}`]) 
+        }         
       },
       error:(error:any)=> console.log(error),
       complete: ()=> console.log("complete")
@@ -65,7 +66,7 @@ export class CreateBoardComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    //this.webSocket.closeConnection();
+    this.webSocket.closeConnection();
   }
 
   leaveLobby(){
@@ -92,7 +93,6 @@ export class CreateBoardComponent implements OnInit, OnDestroy{
   }
 
   crateBoard(){
-    if(this.readyToPlay){
     console.log("creo Juego");
     let players = {}
     this.usersInLobby.map(p => {
@@ -107,17 +107,15 @@ export class CreateBoardComponent implements OnInit, OnDestroy{
     )
     const data = {
       "juegoId": this.lobby.id,
-      "jugadores": {
-        "uid-001": "camilo",
+      "jugadores": {        
         ...players
       },
       "jugadorPrincipalId": this.lobby.host
     }
+    
     this.boardService.createGame(data).subscribe(s=>
-      {  
-        //this.router.navigate([`/board/${this.lobby.id}`])
-      }       
-    );}else{alert("Deben ser minimo dos jugadores")}
+      console.log(s)    
+    ); 
   }
 
 }

@@ -18,13 +18,13 @@ import { CardBoard } from 'src/app/models/cardsBoards.model';
 })
 
 export class BoardComponent implements OnInit {
-  juegoId: string;
+  juegoId!: string;
   board!:Board;
   events = new Array<any>;
   player! : Player; 
   activePlayers!: number;
   currentRound!: Round;
-  timer:number;
+  timer!:number;
   boardDeck!:Array<CardBoard>;
 
   constructor(
@@ -40,10 +40,13 @@ export class BoardComponent implements OnInit {
     console.log("board montado");
     this.getBoard();
     this.webSocket.connect(this.juegoId).subscribe({
-      next:(message:any)=> {
-        this.getBoard();  
-        console.log(message);      
-        message.type == "cardgame.tiempocambiadodeltablero" ? this.timer = message.tiempo :console.log("");
+      next:(message:any)=> {          
+        console.log(message);         
+        message.type == "cardgame.rondainiciada" ? this.board.isEnabled = true : console.log("");     
+        message.type == "cardgame.tiempocambiadodeltablero" ? this.timer = message.tiempo :this.getBoard();
+        message.type == "cardgame.rondafinalizada" ? this.board.isEnabled = false : console.log("");  
+        message.type == "cardgame.rondafinalizada" ? console.log(this.boardDeck) : console.log("");        
+        message.type == "cardgame.rondacreada" ? this.timer = message.tiempo :console.log("");
       },
       error:(error:any)=> console.log(error),
       complete: ()=> console.log("complete")
@@ -62,9 +65,7 @@ export class BoardComponent implements OnInit {
       let cards = new Map<string, Set<CardBoard>>; 
       this.boardDeck = Object.keys(event.tablero.cartas).flatMap(key =>{
         const value = event.tablero.cartas[key];
-        console.log(value); 
         cards.set(key, value);    
-        console.log(cards);
         return value;      
       });
       const board = {
@@ -111,7 +112,7 @@ export class BoardComponent implements OnInit {
       "juegoId": this.juegoId
     }
     console.log("puse carta");
-    //this.playerService.putCard(body).subscribe(card =>{ console.log(card); });
+    this.playerService.putCard(body).subscribe(card =>{ console.log(card); });
   }
 }
   
