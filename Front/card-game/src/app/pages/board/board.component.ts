@@ -10,6 +10,7 @@ import { Board } from 'src/app/models/board.model';
 import { PlayerService } from 'src/app/services/player.service';
 import { CardBoard } from 'src/app/models/cardsBoards.model';
 import { Winner } from 'src/app/models/winner.model';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -58,10 +59,12 @@ export class BoardComponent implements OnInit {
   }
 
   
-  startGame(){       
+  startGame(){   
+    Swal.fire('Any fool can use a computer')
+    
     this.boardService.startRound({"juegoId": this.juegoId}).subscribe(event => 
       console.log(event)
-      );
+    );
   }
     
   getBoard(){

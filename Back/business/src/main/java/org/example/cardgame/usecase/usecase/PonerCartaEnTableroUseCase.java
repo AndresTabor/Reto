@@ -11,6 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
+import java.util.Set;
 
 
 public class PonerCartaEnTableroUseCase extends UseCaseForCommand<PonerCartaEnTablero> {
@@ -41,12 +42,12 @@ public class PonerCartaEnTableroUseCase extends UseCaseForCommand<PonerCartaEnTa
     private void validarCantidadDelJugador(Juego juego, JugadorId jugadorId) {
         var cantidad = (long) juego.tablero().partida()
                 .get(jugadorId).size();
-        if (cantidad >= 2) {
-            throw new IllegalArgumentException("No puede poner mas de 2 cartas en el tablero");
+        if (cantidad >= 1) {
+            throw new IllegalArgumentException("No puede poner mas de 1 carta en el tablero");
         }
     }
 
-    private Carta seleccionarCarta(String cartaId, java.util.Set<Carta> cartasDelJugador) {
+    private Carta seleccionarCarta(String cartaId, Set<Carta> cartasDelJugador) {
         return cartasDelJugador
                 .stream()
                 .filter(c -> c.value().cartaId().value().equals(cartaId))
