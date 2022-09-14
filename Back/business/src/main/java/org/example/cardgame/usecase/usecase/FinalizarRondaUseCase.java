@@ -54,7 +54,6 @@ public class FinalizarRondaUseCase extends UseCaseForCommand<FinalizarRondaComma
 
                     juego.asignarCartasAGanador(JugadorId.of(ganadorId), puntos, cartasEnTablero);
                     juego.terminarRonda(juego.tablero().identity(), competidores);
-
                     return juego.getUncommittedChanges();
                 }));
     }
