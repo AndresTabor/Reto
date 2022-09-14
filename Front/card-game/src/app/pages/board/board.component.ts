@@ -9,6 +9,7 @@ import { Round } from 'src/app/models/round.mode';
 import { Board } from 'src/app/models/board.model';
 import { PlayerService } from 'src/app/services/player.service';
 import { CardBoard } from 'src/app/models/cardsBoards.model';
+import { Winner } from 'src/app/models/winner.model';
 
 
 @Component({
@@ -19,13 +20,15 @@ import { CardBoard } from 'src/app/models/cardsBoards.model';
 
 export class BoardComponent implements OnInit {
   juegoId!: string;
-  board!:Board;
+  board:Board | undefined;
   events = new Array<any>;
-  player! : Player; 
+  player : Player | undefined ; 
   activePlayers!: number;
   currentRound!: Round;
   timer!:number;
   boardDeck!:Array<CardBoard>;
+  winner!: Winner;
+  isHosting: boolean = false;
 
   constructor(
     private boardService: BoardService,private webSocket : ConnectService,
@@ -34,6 +37,7 @@ export class BoardComponent implements OnInit {
   ) { 
     this.juegoId = this.router.url.split('/').pop()!;    
     this.timer = 60;
+    localStorage.getItem('host') == getAuth().currentUser?.uid ? this.isHosting = true : false;
   }
 
   ngOnInit(): void {
@@ -42,9 +46,9 @@ export class BoardComponent implements OnInit {
     this.webSocket.connect(this.juegoId).subscribe({
       next:(message:any)=> {          
         console.log(message);         
-        message.type == "cardgame.rondainiciada" ? this.board.isEnabled = true : console.log("");     
+        message.type == "cardgame.rondainiciada" ? this.board!.isEnabled = true : console.log("");     
         message.type == "cardgame.tiempocambiadodeltablero" ? this.timer = message.tiempo :this.getBoard();
-        message.type == "cardgame.rondafinalizada" ? this.board.isEnabled = false : console.log("");  
+        message.type == "cardgame.rondafinalizada" ? this.board!.isEnabled = false : console.log("");  
         message.type == "cardgame.rondafinalizada" ? console.log(this.boardDeck) : console.log("");        
         message.type == "cardgame.rondacreada" ? this.timer = message.tiempo :console.log("");
       },
@@ -107,7 +111,7 @@ export class BoardComponent implements OnInit {
 
   putCardInBoard(idCard:string){
     const body = {
-      "jugadorId": this.player.id,
+      "jugadorId": this.player!.id,
       "cartaId": idCard,
       "juegoId": this.juegoId
     }

@@ -32,7 +32,7 @@ public class PonerCartaEnTableroUseCase extends UseCaseForCommand<PonerCartaEnTa
                     var cartasDelJugador = juego.jugadores().get(jugadorId).mazo().value().cartas();
                     var cartaSeleccionado = seleccionarCarta(command.getCartaId(), cartasDelJugador);
 
-                    //validarCantidadDelJugador(juego, jugadorId);
+                    validarCantidadDelJugador(juego, jugadorId);
                     juego.ponerCartaEnTablero(tableroId, jugadorId, cartaSeleccionado);
                     return juego.getUncommittedChanges();
                 }));
