@@ -26,7 +26,13 @@ export class ModalComponent implements OnInit {
   }
 
   selectPlayer(player: string): void {
-    this.weakened.push(player);
+    const inPresent = this.weakened.filter(id => id == player);
+    if(inPresent.length > 0) {
+      this.weakened.push(player);
+    }else{
+      alert("Este jugador ya fue seleccionado");
+    }
+
   }
 
   close(){

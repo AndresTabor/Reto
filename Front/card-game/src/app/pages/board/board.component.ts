@@ -59,7 +59,7 @@ export class BoardComponent implements OnInit {
         message.type == "cardgame.rondacreada" ? this.timer = message.tiempo :console.log("");
         if (message.type === 'cardgame.tiempocambiadodeltablero') {
           this.timer = message.tiempo
-          if (message.tiempo == 1 && this.currentRound.round == 3 && this.jugadorSeleccionado == this.player.id) {
+          if (message.tiempo == 1 && this.currentRound.round >= 3 && this.jugadorSeleccionado == this.player.id) {
             this.showModal = true;
           }
         }
