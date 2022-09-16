@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class FinalizarRondaUseCase extends UseCaseForCommand<FinalizarRondaCommand> {
@@ -31,14 +32,34 @@ public class FinalizarRondaUseCase extends UseCaseForCommand<FinalizarRondaComma
                 .flatMapIterable(events -> {
 
                     var juego = Juego.from(JuegoId.of(command.getJuegoId()), events);
+                    var ronda = juego.ronda().value().numero();
                     TreeMap<Integer, String> partidaOrdenada = new TreeMap<>((t1, t2) -> t2 - t1);
                     var jugadoresIds = command.getJugadoresSeleccionados();
+                    var jugadorPotenciado = command.getJugadorPotenciado();
+                    Carta cartaPotenciada;
+                    AtomicReference<Double> porcentaje = new AtomicReference<>(0.0d);
+
+                    if (jugadorPotenciado != null){
+                        var ac = juego.tablero().partida().get(JugadorId.of(jugadorPotenciado)).stream().map(c -> c.value().poder()).reduce(0, (a,b) -> a+b) * 0.1;
+                        porcentaje.set(ac);
+                    }
+
+
                     Set<Carta> cartasEnTablero = new HashSet<>();
+                    Double finalPorcentaje = porcentaje.get();
                     juego.tablero().partida().forEach((jugadorId, cartas) -> {
                         cartas.stream()
                                 .map(c -> c.value().poder())
                                 .reduce(Integer::sum)
                                 .ifPresent(puntos -> {
+                                    String estoyDebilitado;
+                                    if (jugadoresIds != null){
+                                        estoyDebilitado = jugadoresIds.stream().filter(id -> id.equals(jugadorId.value()) ).findFirst().orElse(null);
+                                        if (ronda > 2  && estoyDebilitado != null){
+                                            var a = (puntos - (int)Math.floor(finalPorcentaje));
+                                            puntos = a;
+                                        }
+                                    }
                                     partidaOrdenada.put(puntos, jugadorId.value());
                                     cartasEnTablero.addAll(cartas);
                                 });

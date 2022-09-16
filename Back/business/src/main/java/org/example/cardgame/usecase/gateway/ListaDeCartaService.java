@@ -7,4 +7,6 @@ import reactor.core.publisher.Flux;
 
 public interface ListaDeCartaService {
     Flux<CartaMaestra> obtenerCartasDeMarvel();
+
+    /*Mono<CartaMaestra> crearCartaMaestra();*/
 }

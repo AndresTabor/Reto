@@ -9,6 +9,16 @@ public class FinalizarRondaCommand extends Command {
 
     private Set<String> jugadoresSeleccionados;
 
+    private String jugadorPotenciado;
+
+    public String getJugadorPotenciado() {
+        return jugadorPotenciado;
+    }
+
+    public void setJugadorPotenciado(String jugadorPotenciado) {
+        this.jugadorPotenciado = jugadorPotenciado;
+    }
+
     public Set<String> getJugadoresSeleccionados() {
         return jugadoresSeleccionados;
     }

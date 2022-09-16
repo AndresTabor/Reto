@@ -5,6 +5,7 @@ import org.example.cardgame.usecase.gateway.model.CartaMaestra;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Component
 public class DataConsultarCartaMaestraService implements ListaDeCartaService {
@@ -19,4 +20,7 @@ public class DataConsultarCartaMaestraService implements ListaDeCartaService {
     public Flux<CartaMaestra> obtenerCartasDeMarvel() {
         return template.findAll(CartaMaestra.class, "cards");
     }
+
+   /* @Override
+    public Mono<CartaMaestra> crearCartaMaestra(){ return template.insert(CartaMaestra.class,"cards"); }*/
 }

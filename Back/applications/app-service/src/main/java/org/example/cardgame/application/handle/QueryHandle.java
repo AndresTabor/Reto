@@ -17,15 +17,17 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
 public class QueryHandle {
-
+    private final ErrorHandler errorHandler;
     private final ReactiveMongoTemplate template;
 
-    public QueryHandle(ReactiveMongoTemplate template) {
+    public QueryHandle(ErrorHandler errorHandler, ReactiveMongoTemplate template) {
+        this.errorHandler = errorHandler;
         this.template = template;
     }
 
@@ -63,6 +65,17 @@ public class QueryHandle {
                                 .body(BodyInserters.fromPublisher(Mono.just(element), MazoViewModel.class)))
         );
     }
+
+    /*@Bean
+    public RouterFunction<ServerResponse> createCard() {
+        return route(
+                POST("/card/new").and(accept(MediaType.APPLICATION_JSON)),
+                request -> template.insert(MazoViewModel.class, "cards")
+                        .then(ServerResponse.ok().build())
+                        .onErrorResume(errorHandler::badRequest)
+
+        );
+    }*/
 
 
     private Query filterByUId(String uid) {
