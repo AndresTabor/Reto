@@ -54,7 +54,7 @@ public class JuegoEventChange extends EventChange {
             });
             if(counter.get() == 2){
                 var r = new Random();
-                var idJugador = juego.tablero.partida().keySet().stream().collect(Collectors.toList()).get(r.nextInt((2 - 0) + 1) + 0);
+                var idJugador = juego.tablero.partida().keySet().stream().collect(Collectors.toList()).get(r.nextInt((1 - 0) + 1) + 0);
                 juego.selecciocarJuador(idJugador.value());
             }
         });

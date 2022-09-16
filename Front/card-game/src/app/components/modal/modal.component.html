@@ -1,0 +1,19 @@
+<div class="contenedor">
+  
+    <h2>Seleccione 2 jugadores</h2>
+  
+    <form id="frmJugadores">
+  
+      <div class="select">  
+        <select name="jugadores" multiple class="jugadores" formControlName="jugadores" *ngFor="let id of player">
+          <option>
+            {{id}}
+          </option>          
+        </select>
+      </div>
+      <div class="cont-button">
+        <button class="btn-3" form="frmJugadores" type="button" (click)="close()"><span>Confirmar</span></button>
+      </div>
+  
+    </form>
+</div>

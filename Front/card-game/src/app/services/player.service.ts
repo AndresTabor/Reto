@@ -1,5 +1,5 @@
 import { getAuth } from '@angular/fire/auth';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { collection, doc, Firestore, setDoc } from '@angular/fire/firestore';
 import { PlayerLobby } from '../models/playerLobby';
 import { LobbyService } from './lobby.service';
@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class PlayerService {
+  @Output() showModal: EventEmitter<Boolean> = new EventEmitter();
 
   constructor(
     private store : Firestore, 

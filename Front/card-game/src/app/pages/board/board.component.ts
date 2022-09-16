@@ -1,6 +1,5 @@
 import { BoardService } from './../../services/board.service';
 import { Component, OnInit } from '@angular/core';
-import { Card } from 'src/app/models/card.model';
 import { ConnectService } from 'src/app/services/connect.service';
 import { Router } from '@angular/router';
 import { getAuth } from '@angular/fire/auth';
@@ -34,8 +33,9 @@ export class BoardComponent implements OnInit {
   boardDeck:Array<CardBoard> = new Array<CardBoard>;
   winner!: Winner;
   isHosting: boolean = false;
-  jugadorSelec: string | undefined;
-  
+  jugadorSeleccionado: string = "";
+  showModal:boolean = true;
+
   constructor(
     private boardService: BoardService,private webSocket : ConnectService,
     private router: Router,
@@ -57,11 +57,20 @@ export class BoardComponent implements OnInit {
         message.type == "cardgame.rondafinalizada" ? this.board!.isEnabled = false : console.log("");  
         message.type == "cardgame.rondafinalizada" ? console.log(this.boardDeck) : console.log("");        
         message.type == "cardgame.rondacreada" ? this.timer = message.tiempo :console.log("");
-        message.type == "cardgame.rondacreada" ? this.timer = message.tiempo :console.log("");
+        if (message.type === 'cardgame.tiempocambiadodeltablero') {
+          this.timer = message.tiempo
+          if (message.tiempo == 1 && this.currentRound.round == 3 && this.jugadorSeleccionado == this.player.id) {
+            this.showModal = true;
+          }
+        }
+        if (message.type === 'cardgame.JugadorSeleccionado') {
+          this.jugadorSeleccionado = message.jugadorId;
+        }
       },
       error:(error:any)=> console.log(error),
       complete: ()=> console.log("complete")
-    });    
+    });  
+    this.playerService.showModal.subscribe(event => this.showModal = event.valueOf());
   }
 
   
@@ -118,11 +127,9 @@ export class BoardComponent implements OnInit {
 
   putCardInBoard(idCard:string){
     const body = {
-      "jugadorId": this.player!.id,
+      "jugadorId": this.player.id,
       "cartaId": idCard,
-      "juegoId": this.juegoId,
-      "jugadorSelec": "",
-      "jugadoresDebil":["", ""]
+      "juegoId": this.juegoId      
     }
     this.playerService.putCard(body).subscribe(card =>{ console.log(card); });
     
