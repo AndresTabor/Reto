@@ -73,6 +73,17 @@ public class CommandHandle {
         );
     }
 
+    @Bean
+    public RouterFunction<ServerResponse> finalizarRonda(FinalizarRondaUseCase usecase) {
+        return route(
+                POST("/juego/ronda/finalizar").and(accept(MediaType.APPLICATION_JSON)),
+                request -> usecase.andThen(integrationHandle)
+                        .apply(request.bodyToMono(FinalizarRondaCommand.class))
+                        .then(ServerResponse.ok().build())
+                        .onErrorResume(errorHandler::badRequest)
+        );
+    }
+
 
     @Bean
     public RouterFunction<ServerResponse> crearRonda(CrearRondaUseCase usecase) {

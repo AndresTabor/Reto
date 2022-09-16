@@ -32,6 +32,7 @@ public class FinalizarRondaUseCase extends UseCaseForCommand<FinalizarRondaComma
 
                     var juego = Juego.from(JuegoId.of(command.getJuegoId()), events);
                     TreeMap<Integer, String> partidaOrdenada = new TreeMap<>((t1, t2) -> t2 - t1);
+                    var jugadoresIds = command.getJugadoresSeleccionados();
                     Set<Carta> cartasEnTablero = new HashSet<>();
                     juego.tablero().partida().forEach((jugadorId, cartas) -> {
                         cartas.stream()
