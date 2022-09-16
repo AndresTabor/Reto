@@ -6,6 +6,9 @@ import org.example.cardgame.domain.events.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * The type Juego event change.
@@ -45,6 +48,15 @@ public class JuegoEventChange extends EventChange {
 
         apply((CartaPuestaEnTablero event) -> {
             juego.tablero.adicionarPartida(event.getJugadorId(), event.getCarta());
+            AtomicInteger counter = new AtomicInteger();
+            juego.tablero.partida().values().stream().forEach(c -> {
+                if(c.size() > 0)  { counter.getAndIncrement(); }
+            });
+            if(counter.get() == 2){
+                var r = new Random();
+                var idJugador = juego.tablero.partida().keySet().stream().collect(Collectors.toList()).get(r.nextInt((2 - 0) + 1) + 0);
+                juego.selecciocarJuador(idJugador.value());
+            }
         });
 
         apply((CartaQuitadaDelTablero event) -> {

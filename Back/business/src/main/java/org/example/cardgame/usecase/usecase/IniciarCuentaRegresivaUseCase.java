@@ -42,7 +42,7 @@ public class IniciarCuentaRegresivaUseCase extends UseCaseForEvent<RondaIniciada
                             var nuevoTiempo = tiempo - acumulador.getAndIncrement();
                             juego.cambiarTiempoDelTablero(tableroId, nuevoTiempo );
 
-                           if(nuevoTiempo == 1){
+                           if(nuevoTiempo == 1 && juego.ronda().value().numero() < 3){
                                return finalizarRondaUseCase.apply(Mono.just(finalizarCommand))
                                        .mergeWith(Flux.fromIterable(juego.getUncommittedChanges()));
                            }

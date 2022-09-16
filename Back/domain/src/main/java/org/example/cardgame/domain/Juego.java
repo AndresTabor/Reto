@@ -94,6 +94,9 @@ public class Juego extends AggregateEvent<JuegoId> {
     }
 
 
+    public void selecciocarJuador(String jugadorId){
+        appendChange(new JugadorSeleccionado(jugadorId)).apply();
+    }
 
     public void asignarCartasAGanador(JugadorId ganadorId, Integer puntos, Set<Carta> cartasApuesta) {
         appendChange(new CartasAsignadasAJugador(ganadorId, puntos, cartasApuesta)).apply();
