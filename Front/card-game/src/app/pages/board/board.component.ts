@@ -34,7 +34,7 @@ export class BoardComponent implements OnInit {
   winner!: Winner;
   isHosting: boolean = false;
   jugadorSeleccionado: string = "";
-  showModal:boolean = true;
+  showModal:boolean = false;
 
   constructor(
     private boardService: BoardService,private webSocket : ConnectService,

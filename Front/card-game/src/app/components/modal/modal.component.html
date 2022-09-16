@@ -1,19 +1,16 @@
 <div class="contenedor">
-  
-    <h2>Seleccione 2 jugadores</h2>
-  
-    <form id="frmJugadores">
-  
-      <div class="select">  
-        <select name="jugadores" multiple class="jugadores" formControlName="jugadores" *ngFor="let id of player">
-          <option>
-            {{id}}
-          </option>          
-        </select>
+    <div class="info-modal-container">
+      <div>
+        <h2 class="font-bebas text-6xl text-center">DEBILITA A TU ADVERSARIO</h2>
+        <p class="text-white font-roboto text-center">Selecciona a 1 o maximo 2 jugadores de la partida para aplicarle un malus del 10% del poder de tu carta.</p>                      
       </div>
+      <div name="jugadores" multiple class="jugadores" formControlName="jugadores" *ngFor="let id of player">
+        <button class="text-white font-roboto btn-player-select" (click)="selectPlayer(id)">
+          {{id}}
+        </button>          
+      </div>        
       <div class="cont-button">
-        <button class="btn-3" form="frmJugadores" type="button" (click)="close()"><span>Confirmar</span></button>
-      </div>
-  
-    </form>
+        <button class="btn-marvel" form="frmJugadores" type="button" (click)="close()"><span>CONFIRMAR</span></button>
+      </div>      
+    </div>
 </div>
